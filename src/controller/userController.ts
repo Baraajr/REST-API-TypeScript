@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import logger from '../utils/logger'; // Assuming logger is set up correctly
-import User from '../models/user.model'; // Ensure you import User if needed
 import { createUser } from '../service/user.service';
 import { CreateUserInput } from '../schema/user.schema';
 

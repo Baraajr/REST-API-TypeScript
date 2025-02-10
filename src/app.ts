@@ -1,12 +1,11 @@
 import express from 'express';
 import config from 'config'; //this is a package
-
 import logger from './utils/logger';
 import connectDb from './utils/connect';
-import routes from './routes';
 import deserializeUser from './middleware/deserializeUser';
+import createServer from './utils/server';
 
-const app = express();
+export const app = createServer(); // exported for testing
 
 app.use(express.json());
 
@@ -17,6 +16,4 @@ app.listen(port, async () => {
   logger.info(`app is running on http://localhost:${port}`);
 
   await connectDb();
-
-  routes(app);
 });
