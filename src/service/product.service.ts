@@ -3,8 +3,21 @@ import ProductModel, {
   ProductDocument,
   ProductInput,
 } from '../models/product.model';
+import { databaseResponseTimeHistogram } from '../utils/metrics';
 export async function createProduct(input: ProductInput) {
-  return await ProductModel.create(input);
+  const metricLabel = {
+    operation: 'createProduct',
+  };
+
+  const timer = databaseResponseTimeHistogram.startTimer(); // calc time for creating a product
+  try {
+    const result = await ProductModel.create(input);
+    timer({ ...metricLabel, success: String(true) });
+    return result;
+  } catch (err) {
+    timer({ ...metricLabel, success: String(false) });
+    throw err;
+  }
 }
 export async function findProduct(
   query: FilterQuery<ProductDocument>,
