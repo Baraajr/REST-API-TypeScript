@@ -12,7 +12,7 @@ export async function createUserSessionHandler(req: Request, res: Response) {
   // validate user password  this return the user
   const user = await validatePassword(req.body);
 
-  if (!user) return res.status(401).send('invalid email or password');
+  if (!user) return res.status(400).send('invalid email or password');
 
   const userId = user._id.toString();
 
@@ -43,11 +43,11 @@ export async function createUserSessionHandler(req: Request, res: Response) {
 
 export const getUserSessionsHandler = async (req: Request, res: Response) => {
   const userID = res.locals.user._id.toString();
-  const userSession = await getUserSessions({
+  const userSessions = await getUserSessions({
     user: userID,
     valid: true,
   });
-  res.send({ userSession });
+  res.send({ userSessions });
 };
 
 export const deleteSessionHandler = async (req: Request, res: Response) => {
