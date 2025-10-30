@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 te session is tied to logging in and out
 create session is logging in
 d delete session is logging out
